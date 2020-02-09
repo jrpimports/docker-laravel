@@ -4,7 +4,9 @@ services:
 
     app:
       build: .
-      container_name: app
+      container_name: ${DOCKER_APP_NAME:-app}
+      environment:
+        - APP_PORT=${DOCKER_APP_PORT:-9000}
       volumes:
         - .:/var/www
       networks:
@@ -20,6 +22,9 @@ services:
       tty: true
       ports:
         - "8000:80"
+      environment:
+        - APP_NAME=${DOCKER_APP_NAME:-app}
+        - APP_PORT=${DOCKER_APP_PORT:-9000}
       volumes:
         - .:/var/www
       networks:
